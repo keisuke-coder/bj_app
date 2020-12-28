@@ -1,22 +1,19 @@
 class Card
-  attr_reader :card, :picture, :letter
-  attr_writer :card, :picture, :letter
+  attr_reader :card
+  attr_writer :card
   def create_card(pictures, letters)
-    card = []
+    @card = []
     letters.each.with_index(1) do |letter, i|
       i = 10 if i > 10 
       pictures.each do |picture|
-        card << {picture: picture, letter: letter, point: i}
+        @card << {picture: picture, letter: letter, point: i}
       end
     end
-    puts card
   end
 end
 
 class Player
-  def initialize
 
-  end
 end
 
 class Dealer
