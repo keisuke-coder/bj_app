@@ -8,7 +8,6 @@ class Card
         @remaining_card << {picture: picture, letter: letter, point: i}
       end
     end
-    @remaining_card
   end
 
   def two_drow_card(remaining_card)
@@ -24,6 +23,11 @@ class Card
     end 
   end
 
+  def disp_have_card
+    puts "#{@drew_card[0][:picture]} の#{@drew_card[0][:letter]} と #{@drew_card[1][:picture]} の#{@drew_card[1][:letter]}"
+    puts "カードの合計 #{@total_point}"
+  end
+
   def one_drow_card(remaining_card)
     argument_num = rand(remaining_card.length - 1)
     @drew_card << remaining_card[argument_num]
@@ -34,24 +38,29 @@ class Card
     puts "ブラックジャック!!" if @total_point == 21
     puts "バースト!!" if @total_point > 21
   end
-
 end
 
 class Dealer < Card
   def first_drow(remaining_card)
-    
+    puts "ディーラーはカードを2枚引きました。"
+    two_drow_card(remaining_card)
   end
 
   def add_card(remaining_card)
-    one_drow_card(remaining_card) if @total_point < 17
+    puts "*=*=*=*=*=*=*=*=*==*=*=*=*"
+    print "ディーラーのカード "
+    disp_have_card
+    while @total_point < 17
+      one_drow_card(remaining_card)  
+    end
   end
 end
 
 class Player < Card
   def first_drow(remaining_card)
     two_drow_card(remaining_card)
-    puts "あなたのカード #{@drew_card[0][:picture]} の#{@drew_card[0][:letter]} と #{@drew_card[1][:picture]} の#{@drew_card[1][:letter]}"
-    puts "カードの合計 #{@total_point}"
+    print "あなたのカード "
+    disp_have_card
   end
 
   def add_card(remaining_card)
@@ -79,7 +88,9 @@ dealer = Dealer.new
 puts "ゲーム開始です!"
 dealer.first_drow(card.remaining_card)
 player.first_drow(card.remaining_card)
+
 player.add_card(card.remaining_card)
+dealer.add_card(card.remaining_card)
 
 
 #dealerのfirst_drow_cardが途中です
