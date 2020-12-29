@@ -26,16 +26,17 @@ end
 
 class Dealer < Card
   def first_drow_card(remaining_card)
-    puts "ディーラーはカードを2枚引きました。"
     two_drow_card(remaining_card)
-    puts @drew_card
+    puts "ディーラーはカードを2枚引きました。"
   end
 end
 
 class Player < Card
   def first_drow_card(remaining_card)
     two_drow_card(remaining_card)
-    puts @drew_card
+    @total_point = @drew_card[0][:point] + @drew_card[1][:point]
+    puts "あなたのカード #{@drew_card[0][:picture]} の#{@drew_card[0][:letter]} と #{@drew_card[1][:picture]} の#{@drew_card[1][:letter]}"
+    puts "カードの合計 #{@total_point}"
   end
 end
 
