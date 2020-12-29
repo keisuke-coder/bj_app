@@ -85,14 +85,34 @@ card.create_card(pictures, letters)
 player = Player.new
 dealer = Dealer.new
 
+def win_or_lose(player, dealer)
+  if player.total_point == dealer.total_point
+    puts <<~EOS
+    *=*=*=*=*=*=*=*=*==*=*=*=*
+    引き分け
+    EOS
+  elsif player.total_point > dealer.total_point && player.total_point  <= 21 || dealer.total_point > 21
+    puts <<~EOS
+    *=*=*=*=*=*=*=*=*==*=*=*=*
+    おめでとうございます!!
+    あなたの勝利です!!
+    EOS
+  else
+    puts <<~EOS
+    *=*=*=*=*=*=*=*=*==*=*=*=*
+    残念。
+    あなたの敗北です。
+    EOS
+  end
+end
+
 puts "ゲーム開始です!"
 dealer.first_drow(card.remaining_card)
 player.first_drow(card.remaining_card)
-
 player.add_card(card.remaining_card)
-dealer.add_card(card.remaining_card)
+dealer.add_card(card.remaining_card) if player.total_point <= 21
+win_or_lose(player, dealer)
 
 
-#dealerのfirst_drow_cardが途中です
 
 
