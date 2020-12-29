@@ -31,13 +31,19 @@ class Card
     remaining_card.delete_at(argument_num)
     puts "引いたカードは #{@drew_card.last[:picture]} の#{@drew_card.last[:letter]}" 
     puts "カードの合計 #{@total_point}"
+    puts "ブラックジャック!!" if @total_point == 21
+    puts "バースト!!" if @total_point > 21
   end
+
 end
 
 class Dealer < Card
   def first_drow(remaining_card)
-    two_drow_card(remaining_card)
-    puts "ディーラーはカードを2枚引きました。"
+    
+  end
+
+  def add_card(remaining_card)
+    one_drow_card(remaining_card) if @total_point < 17
   end
 end
 
@@ -55,7 +61,7 @@ class Player < Card
       print "追加する場合は 1 追加しない場合は 2 を選択 >"
       chosen_num = gets.to_i
       one_drow_card(remaining_card) if chosen_num == 1
-      break if chosen_num == 2
+      break if chosen_num == 2 || @total_point >= 21 
     end
   end
 end
@@ -71,9 +77,9 @@ player = Player.new
 dealer = Dealer.new
 
 puts "ゲーム開始です!"
-dealer_first_drew_card = dealer.first_drow(card.remaining_card)
-player_first_drew_card = player.first_drow(card.remaining_card)
-player_added_card = player.add_card(card.remaining_card)
+dealer.first_drow(card.remaining_card)
+player.first_drow(card.remaining_card)
+player.add_card(card.remaining_card)
 
 
 #dealerのfirst_drow_cardが途中です
