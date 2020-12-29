@@ -25,14 +25,14 @@ class Card
 end
 
 class Dealer < Card
-  def first_drow_card(remaining_card)
+  def first_drow(remaining_card)
     two_drow_card(remaining_card)
     puts "ディーラーはカードを2枚引きました。"
   end
 end
 
 class Player < Card
-  def first_drow_card(remaining_card)
+  def first_drow(remaining_card)
     two_drow_card(remaining_card)
     @total_point = @drew_card[0][:point] + @drew_card[1][:point]
     puts "あなたのカード #{@drew_card[0][:picture]} の#{@drew_card[0][:letter]} と #{@drew_card[1][:picture]} の#{@drew_card[1][:letter]}"
@@ -51,8 +51,8 @@ player = Player.new
 dealer = Dealer.new
 
 puts "ゲーム開始です!"
-dealer_first_drew_card = dealer.first_drow_card(card.remaining_card)
-player_first_drew_card = player.first_drow_card(card.remaining_card)
+dealer_first_drew_card = dealer.first_drow(card.remaining_card)
+player_first_drew_card = player.first_drow(card.remaining_card)
 #dealerのfirst_drow_cardが途中です
 
 
