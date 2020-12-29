@@ -10,7 +10,7 @@ card.create_card(pictures, letters)
 dealer = Dealer.new
 player = Player.new
 
-def win_or_lose(player, dealer)
+def judge(player, dealer)
   if player.total_point == dealer.total_point
     puts <<~EOS
     *=*=*=*=*=*=*=*=*==*=*=*=*
@@ -31,12 +31,15 @@ def win_or_lose(player, dealer)
   end
 end
 
-puts "ゲーム開始です!"
+puts <<~EOS
+ようこそブラックジャックへ!!
+ゲーム開始です!!
+EOS
 dealer.first_drow(card.remaining_card)
 player.first_drow(card.remaining_card)
 player.add_card(card.remaining_card)
 dealer.add_card(card.remaining_card) if player.total_point <= 21
-win_or_lose(player, dealer)
+judge(player, dealer)
 
 
 
